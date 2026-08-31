@@ -43,12 +43,27 @@ mean putting false "AI-written" accusations on real people's work. So AIBlockle 
 flags text that **says** it's AI. If you want a stricter (but noisier) heuristic
 mode, it belongs behind an explicit opt-in — say the word and I'll add it as a toggle.
 
-## Run it
+## Two ways to use it
+
+### Desktop app (full filtering)
+The Electron app does all three layers, including filtering AI media/text inside pages.
 
 ```bash
 npm install
 npm start
 ```
+
+### Phone start page (`web/index.html`)
+A self-contained, mobile-first AI-free **start page** you can open in phone Chrome and
+"Add to Home Screen." It gives AI-free search (via DuckDuckGo) and a link checker that
+warns before you open a known AI site.
+
+It is a single static HTML file — open `web/index.html` in any browser, or host it
+anywhere (GitHub Pages, Netlify, etc.). **Honest limit:** a plain web page can't reach
+inside *other* websites to hide their AI images/text — phone browsers forbid that for
+every site. So the phone page guards the front door (AI sites + AI search); the deep
+in-page media/text filtering lives in the desktop app, which needs an extension-or-proxy
+capability that mobile Chrome doesn't offer.
 
 That opens the AIBlockle browser window. Try visiting `chatgpt.com` or searching
 something on Google — the AI parts are blocked or hidden.
