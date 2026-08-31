@@ -57,11 +57,12 @@ npm start
 A self-contained, mobile-first AI-free **start page / launcher** you can open in phone
 Chrome and "Add to Home Screen." It gives you:
 
-- **AI-free search** with a choice of engines (DuckDuckGo, Startpage, Mojeek, Wikipedia) —
-  your pick is remembered.
+- **AI-free search** with a choice of engines (Mojeek by default, plus DuckDuckGo,
+  Startpage, Wikipedia) — your pick is remembered.
 - **Your own shortcuts** — add/remove favorite sites, saved on your device.
-- **An AI-free directory** — a browsable grid of hand-picked destinations by category
-  (News, Reference, Reading, Video, Maps).
+- **A fully customizable directory** — tap **Edit** to add, rename, or remove categories
+  *and* sites. It ships seeded with a starter set and everything saves on-device; a
+  "Reset directory to defaults" option lives under Options.
 - An optional **AI filter** setting: paste your deployed proxy URL and tick a box to open
   searches and sites *through* the filter (see `proxy/`).
 

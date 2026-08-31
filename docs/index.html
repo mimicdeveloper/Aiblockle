@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#0e1512">
-<meta name="description" content="AIBlockle — an AI-free start page: search without AI answers, your own shortcuts, and a directory of AI-free places.">
+<meta name="description" content="AIBlockle — your AI-free start page: search without AI, your own shortcuts, and a directory you build yourself.">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22%3E%3Ctext y=%22.9em%22 font-size=%2290%22%3E%F0%9F%9B%A1%EF%B8%8F%3C/text%3E%3C/svg%3E">
 <title>AIBlockle</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -12,18 +12,10 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=IBM+Plex+Mono:wght@500&family=IBM+Plex+Sans:wght@400;500;600&display=swap">
 <style>
   :root {
-    --bg: #f2f4f3;
-    --surface: #ffffff;
-    --surface-2: #eef1f0;
-    --text: #16201d;
-    --muted: #5c6b66;
-    --accent: #129d6b;
-    --accent-ink: #052a1c;
-    --warn: #c26a12;
-    --border: #dde3e0;
-    --shadow: 0 6px 24px rgba(18, 40, 33, 0.08);
-    --ring: rgba(18, 157, 107, 0.32);
-    color-scheme: light;
+    --bg: #f2f4f3; --surface: #ffffff; --surface-2: #eef1f0;
+    --text: #16201d; --muted: #5c6b66; --accent: #129d6b; --accent-ink: #052a1c;
+    --warn: #c26a12; --border: #dde3e0; --shadow: 0 6px 24px rgba(18,40,33,.08);
+    --ring: rgba(18,157,107,.32); color-scheme: light;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
@@ -41,22 +33,18 @@
   }
 
   * { box-sizing: border-box; }
-  body {
-    margin: 0; background: var(--bg); color: var(--text);
-    font-family: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
-    line-height: 1.5; -webkit-font-smoothing: antialiased;
-  }
-  .wrap { max-width: 620px; margin: 0 auto; padding: 22px 18px 52px; }
+  body { margin: 0; background: var(--bg); color: var(--text); font-family: "IBM Plex Sans", system-ui, -apple-system, sans-serif; line-height: 1.5; -webkit-font-smoothing: antialiased; }
+  .wrap { max-width: 640px; margin: 0 auto; padding: 22px 18px 52px; }
 
   header { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 26px; }
-  .brand { display: flex; align-items: center; gap: 9px; font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 20px; letter-spacing: -0.02em; }
+  .brand { display: flex; align-items: center; gap: 9px; font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: 20px; letter-spacing: -.02em; }
   .brand .mark { font-size: 22px; }
   .status { display: inline-flex; align-items: center; gap: 7px; font-size: 12.5px; font-weight: 500; color: var(--accent); background: var(--surface); border: 1px solid var(--border); padding: 6px 11px; border-radius: 999px; }
   .status .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 0 var(--ring); animation: pulse 2.4s ease-out infinite; }
   @keyframes pulse { 0% { box-shadow: 0 0 0 0 var(--ring); } 70% { box-shadow: 0 0 0 7px rgba(0,0,0,0); } 100% { box-shadow: 0 0 0 0 rgba(0,0,0,0); } }
   @media (prefers-reduced-motion: reduce) { .status .dot { animation: none; } }
 
-  .hero h1 { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: clamp(30px, 8vw, 40px); line-height: 1.04; letter-spacing: -0.03em; text-wrap: balance; margin: 0 0 10px; }
+  .hero h1 { font-family: "Bricolage Grotesque", sans-serif; font-weight: 800; font-size: clamp(30px, 8vw, 40px); line-height: 1.04; letter-spacing: -.03em; text-wrap: balance; margin: 0 0 10px; }
   .hero h1 .em { color: var(--accent); }
   .hero .sub { color: var(--muted); font-size: 15px; margin: 0 0 18px; max-width: 46ch; }
 
@@ -67,7 +55,7 @@
   .field input::placeholder { color: var(--muted); }
   button.go { border: none; background: var(--accent); color: var(--accent-ink); font-family: inherit; font-weight: 600; font-size: 14.5px; padding: 0 16px; border-radius: 9px; cursor: pointer; white-space: nowrap; transition: transform .08s, filter .15s; }
   button.go:hover { filter: brightness(1.05); }
-  button.go:active { transform: scale(0.97); }
+  button.go:active { transform: scale(.97); }
 
   .engines { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; align-items: center; }
   .engines .lbl { font-size: 12px; color: var(--muted); margin-right: 2px; }
@@ -80,16 +68,18 @@
   .recent .chip:hover { color: var(--text); border-color: var(--accent); }
 
   section { margin-top: 34px; }
-  .sechead { display: flex; align-items: center; justify-content: space-between; margin: 0 2px 13px; }
-  .eyebrow { font-size: 11.5px; font-weight: 600; letter-spacing: 0.09em; text-transform: uppercase; color: var(--muted); margin: 0; }
-  .addbtn { font-size: 13px; font-weight: 600; color: var(--accent); background: none; border: none; cursor: pointer; padding: 4px 6px; border-radius: 7px; }
-  .addbtn:hover { background: var(--surface-2); }
+  .sechead { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 0 2px 13px; flex-wrap: wrap; }
+  .eyebrow { font-size: 11.5px; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); margin: 0; }
+  .actions { display: flex; gap: 7px; }
+  .minibtn { font-size: 13px; font-weight: 600; color: var(--accent); background: none; border: 1px solid var(--border); border-radius: 8px; padding: 5px 11px; cursor: pointer; transition: all .12s; }
+  .minibtn:hover { border-color: var(--accent); }
+  .minibtn.active { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
 
   .tiles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; }
   @media (min-width: 480px) { .tiles { grid-template-columns: repeat(3, 1fr); } }
   .tile { position: relative; display: flex; align-items: center; gap: 11px; text-decoration: none; color: var(--text); background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 12px 13px; transition: border-color .15s, transform .08s; cursor: pointer; }
   .tile:hover { border-color: var(--accent); }
-  .tile:active { transform: scale(0.98); }
+  .tile:active { transform: scale(.98); }
   .tile .ico { width: 34px; height: 34px; flex: none; display: grid; place-items: center; background: var(--surface-2); border-radius: 9px; font-size: 18px; }
   .tile .t-name { font-weight: 600; font-size: 13.5px; line-height: 1.2; }
   .tile .t-desc { font-size: 11.5px; color: var(--muted); }
@@ -97,12 +87,18 @@
   .tile.editable .rm { display: flex; }
   .tile .rm:hover { color: var(--warn); border-color: var(--warn); }
 
-  .empty { grid-column: 1 / -1; text-align: center; color: var(--muted); font-size: 13.5px; border: 1px dashed var(--border); border-radius: 12px; padding: 18px; }
+  .empty { grid-column: 1 / -1; text-align: center; color: var(--muted); font-size: 13px; border: 1px dashed var(--border); border-radius: 12px; padding: 16px; }
 
   .catgroup { margin-top: 20px; }
   .catgroup:first-child { margin-top: 0; }
-  .cattitle { font-size: 13px; font-weight: 600; color: var(--text); margin: 0 2px 10px; display: flex; align-items: center; gap: 7px; }
-  .cattitle .cdot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+  .cattitle { display: flex; align-items: center; gap: 8px; margin: 0 2px 10px; }
+  .cattitle .cdot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex: none; }
+  .cattitle .cname { font-size: 13px; font-weight: 600; color: var(--text); }
+  .cattitle .cactions { margin-left: auto; display: none; gap: 6px; }
+  .editing .cattitle .cactions { display: flex; }
+  .cattitle .cbtn { font-size: 12px; font-weight: 600; border: 1px solid var(--border); background: var(--surface); border-radius: 7px; padding: 4px 9px; cursor: pointer; color: var(--muted); }
+  .cattitle .cbtn.add { color: var(--accent); }
+  .cattitle .cbtn.del:hover { color: var(--warn); border-color: var(--warn); }
 
   details.settings { margin-top: 30px; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; }
   details.settings summary { cursor: pointer; list-style: none; padding: 13px 15px; font-weight: 600; font-size: 14px; display: flex; align-items: center; gap: 9px; }
@@ -115,6 +111,8 @@
   .toggle { display: flex; align-items: center; gap: 10px; margin-top: 14px; font-size: 13.5px; }
   .toggle input { width: 18px; height: 18px; accent-color: var(--accent); }
   .settings .hint { font-size: 12px; color: var(--muted); margin-top: 10px; line-height: 1.5; }
+  .settings .reset { margin-top: 16px; font-size: 13px; color: var(--warn); background: none; border: 1px solid var(--border); border-radius: 8px; padding: 7px 12px; cursor: pointer; }
+  .settings .reset:hover { border-color: var(--warn); }
 
   footer { margin-top: 34px; text-align: center; color: var(--muted); font-size: 12px; line-height: 1.6; }
   footer b { color: var(--text); font-weight: 600; }
@@ -129,7 +127,7 @@
 
   <div class="hero">
     <h1>Browse without <span class="em">AI</span>.</h1>
-    <p class="sub">Your calm home base for AI-free browsing — search with an engine that won't push AI answers, keep your own shortcuts, and jump to hand-picked places worth your time.</p>
+    <p class="sub">Your home base, your way — AI-free search, your own shortcuts, and a directory you build yourself. Everything here is yours to customize.</p>
 
     <form id="searchForm" autocomplete="off">
       <div class="field">
@@ -137,23 +135,25 @@
         <button class="go" type="submit">Search</button>
       </div>
     </form>
-    <div class="engines" id="engines" role="group" aria-label="Choose search engine">
-      <span class="lbl">Search with:</span>
-    </div>
+    <div class="engines" id="engines" role="group" aria-label="Choose search engine"><span class="lbl">Search with:</span></div>
     <div class="recent" id="recent" hidden></div>
   </div>
 
   <section>
     <div class="sechead">
       <p class="eyebrow">Your shortcuts</p>
-      <button class="addbtn" id="addShortcut" type="button">+ Add site</button>
+      <div class="actions"><button class="minibtn" id="addShortcut" type="button">+ Add site</button></div>
     </div>
     <div class="tiles" id="shortcuts"></div>
   </section>
 
-  <section>
+  <section id="exploreSection">
     <div class="sechead">
       <p class="eyebrow">Explore — AI-free</p>
+      <div class="actions">
+        <button class="minibtn" id="addCat" type="button" hidden>+ Category</button>
+        <button class="minibtn" id="editDir" type="button">Edit</button>
+      </div>
     </div>
     <div id="directory"></div>
   </section>
@@ -167,71 +167,74 @@
         <input type="checkbox" id="filterOn" />
         <label for="filterOn" style="margin:0;color:var(--text)">Open links through my AI filter</label>
       </div>
-      <p class="hint">If you've deployed the AIBlockle filtering proxy, paste its web address here. When the box above is ticked, searches and sites open <b>through</b> it, so AI images, videos and text get stripped from the pages too. Leave blank to browse normally.</p>
+      <p class="hint">If you've deployed the AIBlockle filtering proxy, paste its web address here. With the box ticked, searches and sites open <b>through</b> it, so AI images, videos and text get stripped from the pages too. Leave blank to browse normally.</p>
+      <button class="reset" id="resetDir" type="button">Reset directory to defaults</button>
     </div>
   </details>
 
   <footer>
     AIBlockle keeps AI out of your <b>search</b> and points you to AI-free places.<br>
-    It can't filter AI <i>inside</i> other sites on its own — that's what the optional filter above is for.
+    Tap <b>Edit</b> to add, rename or remove anything. It all saves on your device.
   </footer>
 </div>
 
 <script>
   // --- Search engines (all AI-free result pages) ----------------------------
   var ENGINES = {
+    mojeek:     { name: "Mojeek",     url: function (q) { return "https://www.mojeek.com/search?q=" + encodeURIComponent(q); } },
     duckduckgo: { name: "DuckDuckGo", url: function (q) { return "https://duckduckgo.com/?q=" + encodeURIComponent(q) + "&ia=web"; } },
     startpage:  { name: "Startpage",  url: function (q) { return "https://www.startpage.com/sp/search?query=" + encodeURIComponent(q); } },
-    mojeek:     { name: "Mojeek",     url: function (q) { return "https://www.mojeek.com/search?q=" + encodeURIComponent(q); } },
     wikipedia:  { name: "Wikipedia",  url: function (q) { return "https://en.wikipedia.org/w/index.php?search=" + encodeURIComponent(q); } }
   };
 
-  // --- AI-free directory -----------------------------------------------------
-  var DIRECTORY = [
-    { cat: "News", items: [
-      { name: "AP News", desc: "Wire service", ico: "📰", url: "https://apnews.com/" },
-      { name: "Reuters", desc: "World news", ico: "🗞️", url: "https://www.reuters.com/" },
-      { name: "BBC", desc: "News", ico: "📻", url: "https://www.bbc.com/news" },
-      { name: "The Guardian", desc: "News", ico: "🌍", url: "https://www.theguardian.com/" },
-      { name: "ProPublica", desc: "Investigative", ico: "🔦", url: "https://www.propublica.org/" }
+  // --- Default directory: seeded from your interests. Fully editable. --------
+  var DEFAULT_DIRECTORY = [
+    { cat: "One Piece TCG", items: [
+      { name: "Official OPTCG", desc: "Card database", ico: "🏴‍☠️", url: "https://en.onepiece-cardgame.com/" },
+      { name: "Limitless OP", desc: "Decks & meta", ico: "📊", url: "https://onepiece.limitlesstcg.com/" },
+      { name: "TCGplayer", desc: "Prices & buy", ico: "🛒", url: "https://www.tcgplayer.com/search/one-piece-card-game/product" },
+      { name: "Nations Duel", desc: "Tournaments", ico: "🏆", url: "https://nationsduel.com/" }
     ]},
-    { cat: "Reference", items: [
-      { name: "Wikipedia", desc: "Encyclopedia", ico: "📚", url: "https://www.wikipedia.org/" },
-      { name: "Wiktionary", desc: "Dictionary", ico: "🔤", url: "https://www.wiktionary.org/" },
-      { name: "Wolfram|Alpha", desc: "Compute facts", ico: "🧮", url: "https://www.wolframalpha.com/" },
-      { name: "Britannica", desc: "Encyclopedia", ico: "🏛️", url: "https://www.britannica.com/" }
+    { cat: "Magic: The Gathering", items: [
+      { name: "Scryfall", desc: "Card search", ico: "🔍", url: "https://scryfall.com/" },
+      { name: "Moxfield", desc: "Deck builder", ico: "🗃️", url: "https://www.moxfield.com/" },
+      { name: "EDHREC", desc: "Commander", ico: "🃏", url: "https://edhrec.com/" },
+      { name: "Official MTG", desc: "News & rules", ico: "🧙", url: "https://magic.wizards.com/" }
     ]},
-    { cat: "Reading & archive", items: [
-      { name: "Project Gutenberg", desc: "Free books", ico: "📖", url: "https://www.gutenberg.org/" },
-      { name: "Internet Archive", desc: "Everything", ico: "🗄️", url: "https://archive.org/" },
-      { name: "Wikisource", desc: "Source texts", ico: "📜", url: "https://wikisource.org/" }
+    { cat: "Skateboarding", items: [
+      { name: "Thrasher", desc: "Mag & videos", ico: "🛹", url: "https://www.thrashermagazine.com/" },
+      { name: "The Berrics", desc: "Skate videos", ico: "🎥", url: "https://theberrics.com/" },
+      { name: "Tactics", desc: "Shop", ico: "👟", url: "https://www.tactics.com/" },
+      { name: "SLAP", desc: "Forums", ico: "💬", url: "https://slapmagazine.com/" }
     ]},
-    { cat: "Video & audio", items: [
-      { name: "Vimeo", desc: "Video", ico: "🎬", url: "https://vimeo.com/" },
-      { name: "Archive Video", desc: "Film & TV", ico: "📼", url: "https://archive.org/details/movies" },
-      { name: "Bandcamp", desc: "Music", ico: "🎵", url: "https://bandcamp.com/" }
+    { cat: "Software development", items: [
+      { name: "MDN", desc: "Web docs", ico: "📘", url: "https://developer.mozilla.org/" },
+      { name: "Stack Overflow", desc: "Q & A", ico: "💡", url: "https://stackoverflow.com/" },
+      { name: "GitHub", desc: "Code & repos", ico: "🐙", url: "https://github.com/" },
+      { name: "Hacker News", desc: "Tech news", ico: "🟧", url: "https://news.ycombinator.com/" },
+      { name: "DevDocs", desc: "API docs", ico: "📑", url: "https://devdocs.io/" }
     ]},
-    { cat: "Maps & everyday", items: [
-      { name: "OpenStreetMap", desc: "Maps", ico: "🗺️", url: "https://www.openstreetmap.org/" },
-      { name: "Weather", desc: "Forecast", ico: "🌤️", url: "https://wttr.in/" },
-      { name: "eBay", desc: "Shopping", ico: "🛒", url: "https://www.ebay.com/" }
+    { cat: "Small business", items: [
+      { name: "SBA.gov", desc: "Start & fund", ico: "🏢", url: "https://www.sba.gov/" },
+      { name: "SCORE", desc: "Free mentoring", ico: "🤝", url: "https://www.score.org/" },
+      { name: "IRS Small Biz", desc: "Taxes", ico: "🧾", url: "https://www.irs.gov/businesses/small-businesses-self-employed" },
+      { name: "Bplans", desc: "Plan templates", ico: "📈", url: "https://www.bplans.com/" }
     ]}
   ];
 
   // --- Storage (never throws) ------------------------------------------------
-  function load(key, fallback) { try { return JSON.parse(localStorage.getItem(key)) ?? fallback; } catch (e) { return fallback; } }
+  function load(key, fallback) { try { var v = JSON.parse(localStorage.getItem(key)); return v == null ? fallback : v; } catch (e) { return fallback; } }
   function save(key, val) { try { localStorage.setItem(key, JSON.stringify(val)); } catch (e) {} }
 
-  var settings = load("aiblockle_settings", { engine: "duckduckgo", proxy: "", filter: false });
+  var settings = load("aiblockle_settings", { engine: "mojeek", proxy: "", filter: false });
   var shortcuts = load("aiblockle_shortcuts", []);
+  var directory = load("aiblockle_directory", DEFAULT_DIRECTORY);
+  var editing = false;
 
   // --- Open helper (respects the optional filter) ----------------------------
   function openUrl(url) {
     var target = url;
-    if (settings.filter && settings.proxy) {
-      var base = settings.proxy.replace(/\/+$/, "");
-      target = base + "/go?url=" + encodeURIComponent(url);
-    }
+    if (settings.filter && settings.proxy) target = settings.proxy.replace(/\/+$/, "") + "/go?url=" + encodeURIComponent(url);
     window.open(target, "_blank", "noopener");
   }
 
@@ -239,11 +242,10 @@
   var qEl = document.getElementById("q");
   document.getElementById("searchForm").addEventListener("submit", function (e) {
     e.preventDefault();
-    var q = qEl.value.trim();
-    if (!q) return;
+    var q = qEl.value.trim(); if (!q) return;
     var recent = load("aiblockle_recent", []).filter(function (x) { return x !== q; });
     recent.unshift(q); save("aiblockle_recent", recent.slice(0, 6)); renderRecent();
-    openUrl(ENGINES[settings.engine].url(q));
+    openUrl(ENGINES[settings.engine] ? ENGINES[settings.engine].url(q) : ENGINES.mojeek.url(q));
   });
 
   function renderEngines() {
@@ -278,7 +280,7 @@
     a.className = "tile" + (opts && opts.editable ? " editable" : "");
     a.href = item.url;
     a.addEventListener("click", function (e) { e.preventDefault(); openUrl(item.url); });
-    a.innerHTML = '<span class="ico">' + (item.ico || "🔗") + '</span>' +
+    a.innerHTML = '<span class="ico">' + escapeHtml(item.ico || "🔗") + '</span>' +
       '<span><span class="t-name">' + escapeHtml(item.name) + '</span>' +
       (item.desc ? '<br><span class="t-desc">' + escapeHtml(item.desc) + '</span>' : '') + '</span>';
     if (opts && opts.onRemove) {
@@ -290,15 +292,14 @@
     return a;
   }
 
+  // --- Shortcuts -------------------------------------------------------------
   function renderShortcuts() {
     var box = document.getElementById("shortcuts");
     box.innerHTML = "";
     if (!shortcuts.length) {
-      var e = document.createElement("div");
-      e.className = "empty";
+      var e = document.createElement("div"); e.className = "empty";
       e.textContent = "No shortcuts yet — tap “+ Add site” to pin the places you visit most.";
-      box.appendChild(e);
-      return;
+      box.appendChild(e); return;
     }
     shortcuts.forEach(function (item, i) {
       box.appendChild(tileEl(item, { editable: true, onRemove: function () {
@@ -306,31 +307,75 @@
       }}));
     });
   }
+  document.getElementById("addShortcut").addEventListener("click", function () {
+    var it = promptForSite(); if (it) { shortcuts.push(it); save("aiblockle_shortcuts", shortcuts); renderShortcuts(); }
+  });
+
+  // --- Directory (fully customizable) ---------------------------------------
+  function saveDir() { save("aiblockle_directory", directory); }
 
   function renderDirectory() {
     var box = document.getElementById("directory");
+    box.className = editing ? "editing" : "";
     box.innerHTML = "";
-    DIRECTORY.forEach(function (group) {
+    if (!directory.length) {
+      var e = document.createElement("div"); e.className = "empty";
+      e.textContent = editing ? "No categories — tap “+ Category” above." : "Empty. Tap Edit to add categories.";
+      box.appendChild(e); return;
+    }
+    directory.forEach(function (group, gi) {
       var g = document.createElement("div"); g.className = "catgroup";
       var h = document.createElement("div"); h.className = "cattitle";
-      h.innerHTML = '<span class="cdot"></span>' + escapeHtml(group.cat);
-      g.appendChild(h);
+      h.innerHTML = '<span class="cdot"></span><span class="cname">' + escapeHtml(group.cat) + '</span>';
+      var acts = document.createElement("span"); acts.className = "cactions";
+      var addB = document.createElement("button"); addB.type = "button"; addB.className = "cbtn add"; addB.textContent = "+ Site";
+      addB.addEventListener("click", function () { var it = promptForSite(); if (it) { group.items.push(it); saveDir(); renderDirectory(); } });
+      var renB = document.createElement("button"); renB.type = "button"; renB.className = "cbtn"; renB.textContent = "Rename";
+      renB.addEventListener("click", function () { var n = prompt("Rename category:", group.cat); if (n && n.trim()) { group.cat = n.trim(); saveDir(); renderDirectory(); } });
+      var delB = document.createElement("button"); delB.type = "button"; delB.className = "cbtn del"; delB.textContent = "× Remove";
+      delB.addEventListener("click", function () { if (confirm('Remove the "' + group.cat + '" category?')) { directory.splice(gi, 1); saveDir(); renderDirectory(); } });
+      acts.appendChild(addB); acts.appendChild(renB); acts.appendChild(delB);
+      h.appendChild(acts); g.appendChild(h);
+
       var grid = document.createElement("div"); grid.className = "tiles";
-      group.items.forEach(function (item) { grid.appendChild(tileEl(item, {})); });
-      g.appendChild(grid);
-      box.appendChild(g);
+      if (!group.items.length && editing) {
+        var em = document.createElement("div"); em.className = "empty"; em.textContent = "No sites yet — tap “+ Site”.";
+        grid.appendChild(em);
+      }
+      group.items.forEach(function (item, ii) {
+        grid.appendChild(tileEl(item, editing ? { editable: true, onRemove: function () {
+          group.items.splice(ii, 1); saveDir(); renderDirectory();
+        }} : {}));
+      });
+      g.appendChild(grid); box.appendChild(g);
     });
   }
 
-  document.getElementById("addShortcut").addEventListener("click", function () {
-    var name = prompt("Shortcut name (e.g. My News):");
-    if (!name) return;
-    var url = prompt("Web address (e.g. example.com):");
-    if (!url) return;
-    if (!/^https?:\/\//i.test(url)) url = "https://" + url.trim();
-    shortcuts.push({ name: name.trim(), desc: "", ico: "🔗", url: url });
-    save("aiblockle_shortcuts", shortcuts); renderShortcuts();
+  document.getElementById("editDir").addEventListener("click", function () {
+    editing = !editing;
+    this.classList.toggle("active", editing);
+    this.textContent = editing ? "Done" : "Edit";
+    document.getElementById("addCat").hidden = !editing;
+    renderDirectory();
   });
+  document.getElementById("addCat").addEventListener("click", function () {
+    var n = prompt("New category name (e.g. Sports):"); if (!n || !n.trim()) return;
+    directory.push({ cat: n.trim(), items: [] }); saveDir(); renderDirectory();
+  });
+  document.getElementById("resetDir").addEventListener("click", function () {
+    if (confirm("Reset the directory back to the starter set? Your custom categories and sites will be removed.")) {
+      directory = JSON.parse(JSON.stringify(DEFAULT_DIRECTORY)); saveDir(); renderDirectory();
+    }
+  });
+
+  // Shared: ask for a site (name + url + optional emoji).
+  function promptForSite() {
+    var name = prompt("Site name:"); if (!name || !name.trim()) return null;
+    var url = prompt("Web address (e.g. example.com):"); if (!url || !url.trim()) return null;
+    url = url.trim(); if (!/^https?:\/\//i.test(url)) url = "https://" + url;
+    var ico = prompt("Emoji icon (optional):", "🔗");
+    return { name: name.trim(), desc: "", ico: (ico && ico.trim()) || "🔗", url: url };
+  }
 
   // --- Settings wiring -------------------------------------------------------
   var proxyInput = document.getElementById("proxyUrl");
