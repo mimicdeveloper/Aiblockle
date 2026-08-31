@@ -1,0 +1,15 @@
+# One-click deploy to Render (https://render.com) — free tier.
+# In Render: New → Blueprint → connect this repo → it reads this file.
+# The whole repo is checked out, so proxy/server.js can require ../src/main/blocklist.js.
+services:
+  - type: web
+    name: aiblockle-proxy
+    runtime: node
+    rootDir: proxy
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: NODE_VERSION
+        value: "20"

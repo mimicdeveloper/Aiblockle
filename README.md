@@ -65,7 +65,16 @@ anywhere (GitHub Pages, Netlify, etc.).
 go to **Settings → Pages → Source: Deploy from a branch**, pick this branch and the
 **`/docs`** folder, and Save. In ~1 minute your page is live at
 `https://mimicdeveloper.github.io/Aiblockle/`. The `docs/.nojekyll` file is there so
-GitHub serves the HTML as-is. **Honest limit:** a plain web page can't reach
+GitHub serves the HTML as-is. Pages rebuilds automatically on every push.
+
+### Filtering proxy (`proxy/`) — strips AI *inside* other sites
+The start page can't reach inside other websites; the **proxy** can. It fetches a page
+on a server, removes AI images/videos/widgets, flags AI-disclosed text, blocks known AI
+sites, and serves the cleaned version — the hosted equivalent of a browser extension,
+which phone Chrome doesn't allow. It's a **reading** filter: great on articles/blogs/news,
+not on login-walled or app-like sites (page scripts are stripped for safety). Run it
+locally with `cd proxy && npm install && npm start`, or deploy it free — see
+[`proxy/README.md`](proxy/README.md) (Render blueprint in `render.yaml`, container in `Dockerfile`). **Honest limit:** a plain web page can't reach
 inside *other* websites to hide their AI images/text — phone browsers forbid that for
 every site. So the phone page guards the front door (AI sites + AI search); the deep
 in-page media/text filtering lives in the desktop app, which needs an extension-or-proxy
