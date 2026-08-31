@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AIBlockle</title>
+  <style>
+    :root {
+      --bg: #111418;
+      --chrome: #1a1e24;
+      --chrome-border: #2a3038;
+      --text: #e6e9ee;
+      --muted: #8a93a0;
+      --accent: #3fb950;
+      --danger: #f0883e;
+      --input-bg: #0c0f13;
+    }
+    * { box-sizing: border-box; }
+    html, body {
+      margin: 0; height: 100%; background: var(--bg); color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+    body { display: flex; flex-direction: column; }
+
+    #toolbar {
+      display: flex; align-items: center; gap: 8px;
+      padding: 8px 10px; background: var(--chrome);
+      border-bottom: 1px solid var(--chrome-border);
+      user-select: none;
+    }
+    .nav-btn {
+      width: 34px; height: 34px; border-radius: 8px; border: 1px solid var(--chrome-border);
+      background: var(--input-bg); color: var(--text); font-size: 16px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .nav-btn:hover { background: #161b22; }
+    .nav-btn:disabled { opacity: 0.35; cursor: default; }
+
+    #address-form { flex: 1; display: flex; }
+    #address {
+      flex: 1; height: 34px; border-radius: 8px; border: 1px solid var(--chrome-border);
+      background: var(--input-bg); color: var(--text); padding: 0 12px; font-size: 14px;
+      outline: none;
+    }
+    #address:focus { border-color: var(--accent); }
+
+    #shield {
+      display: flex; align-items: center; gap: 8px; padding: 6px 10px;
+      border-radius: 8px; border: 1px solid var(--chrome-border); background: var(--input-bg);
+      cursor: pointer; font-size: 13px; white-space: nowrap;
+    }
+    #shield.on { color: var(--accent); }
+    #shield.off { color: var(--muted); }
+    #shield .dot { width: 9px; height: 9px; border-radius: 50%; background: currentColor; }
+    #blocked-count { color: var(--muted); font-size: 12px; min-width: 70px; text-align: right; }
+
+    #view-wrap { flex: 1; position: relative; background: #fff; }
+    webview { position: absolute; inset: 0; width: 100%; height: 100%; }
+
+    #blockpage {
+      position: absolute; inset: 0; display: none;
+      flex-direction: column; align-items: center; justify-content: center;
+      background: var(--bg); color: var(--text); text-align: center; padding: 40px;
+    }
+    #blockpage.show { display: flex; }
+    #blockpage .emoji { font-size: 56px; }
+    #blockpage h1 { margin: 16px 0 6px; font-size: 22px; }
+    #blockpage p { color: var(--muted); max-width: 460px; line-height: 1.5; }
+    #blockpage code { color: var(--danger); background: var(--input-bg); padding: 2px 6px; border-radius: 5px; }
+    #blockpage button {
+      margin-top: 22px; padding: 10px 18px; border-radius: 8px; border: none;
+      background: var(--accent); color: #06210c; font-weight: 600; cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="toolbar">
+    <button id="back" class="nav-btn" title="Back">‹</button>
+    <button id="forward" class="nav-btn" title="Forward">›</button>
+    <button id="reload" class="nav-btn" title="Reload">⟳</button>
+    <form id="address-form">
+      <input id="address" type="text" placeholder="Search the web (no AI) or enter an address"
+             autocomplete="off" spellcheck="false" />
+    </form>
+    <div id="shield" class="on" title="Toggle AI blocking">
+      <span class="dot"></span><span id="shield-label">AI Blocked</span>
+    </div>
+    <span id="blocked-count">0 blocked</span>
+  </div>
+
+  <div id="view-wrap">
+    <webview id="view" src="about:blank"
+             preload="./webview-preload.js"
+             allowpopups="false"></webview>
+    <div id="blockpage">
+      <div class="emoji">🛡️</div>
+      <h1>Blocked: this is an AI service</h1>
+      <p>AIBlockle stopped this page because <code id="blocked-host">the site</code>
+         is a known AI tool. No AI sites, no AI search, no AI content.</p>
+      <button id="go-home">Back to safety</button>
+    </div>
+  </div>
+
+  <script src="./renderer.js"></script>
+</body>
+</html>

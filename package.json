@@ -1,0 +1,15 @@
+{
+  "name": "aiblockle",
+  "version": "0.1.0",
+  "description": "A web browser that detects and blocks AI: no AI sites, no AI search, no AI content.",
+  "main": "src/main/main.js",
+  "scripts": {
+    "start": "electron .",
+    "check": "node --check src/main/main.js && node --check src/main/blocklist.js && node --check src/main/preload.js && node --check src/renderer/renderer.js && node --check src/renderer/webview-preload.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "electron": "^31.0.0"
+  }
+}
