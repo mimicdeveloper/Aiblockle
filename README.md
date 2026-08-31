@@ -53,13 +53,19 @@ npm install
 npm start
 ```
 
-### Phone start page (`web/index.html`)
+### Phone start page (`docs/index.html`)
 A self-contained, mobile-first AI-free **start page** you can open in phone Chrome and
 "Add to Home Screen." It gives AI-free search (via DuckDuckGo) and a link checker that
 warns before you open a known AI site.
 
-It is a single static HTML file — open `web/index.html` in any browser, or host it
-anywhere (GitHub Pages, Netlify, etc.). **Honest limit:** a plain web page can't reach
+It is a single static HTML file — open `docs/index.html` in any browser, or host it
+anywhere (GitHub Pages, Netlify, etc.).
+
+**Public URL via GitHub Pages** (so it works for anyone, no login): in the repo,
+go to **Settings → Pages → Source: Deploy from a branch**, pick this branch and the
+**`/docs`** folder, and Save. In ~1 minute your page is live at
+`https://mimicdeveloper.github.io/Aiblockle/`. The `docs/.nojekyll` file is there so
+GitHub serves the HTML as-is. **Honest limit:** a plain web page can't reach
 inside *other* websites to hide their AI images/text — phone browsers forbid that for
 every site. So the phone page guards the front door (AI sites + AI search); the deep
 in-page media/text filtering lives in the desktop app, which needs an extension-or-proxy
