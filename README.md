@@ -54,9 +54,16 @@ npm start
 ```
 
 ### Phone start page (`docs/index.html`)
-A self-contained, mobile-first AI-free **start page** you can open in phone Chrome and
-"Add to Home Screen." It gives AI-free search (via DuckDuckGo) and a link checker that
-warns before you open a known AI site.
+A self-contained, mobile-first AI-free **start page / launcher** you can open in phone
+Chrome and "Add to Home Screen." It gives you:
+
+- **AI-free search** with a choice of engines (DuckDuckGo, Startpage, Mojeek, Wikipedia) —
+  your pick is remembered.
+- **Your own shortcuts** — add/remove favorite sites, saved on your device.
+- **An AI-free directory** — a browsable grid of hand-picked destinations by category
+  (News, Reference, Reading, Video, Maps).
+- An optional **AI filter** setting: paste your deployed proxy URL and tick a box to open
+  searches and sites *through* the filter (see `proxy/`).
 
 It is a single static HTML file — open `docs/index.html` in any browser, or host it
 anywhere (GitHub Pages, Netlify, etc.).
