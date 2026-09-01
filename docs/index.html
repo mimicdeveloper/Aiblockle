@@ -200,38 +200,37 @@
     return u;
   }
 
-  // --- Default directory: seeded from your interests. Fully editable. --------
+  // --- Default directory: general-purpose starter set. Fully editable, so
+  //     anyone can swap these for their own sites via the Edit button. --------
   var DEFAULT_DIRECTORY = [
-    { cat: "One Piece TCG", items: [
-      { name: "Official OPTCG", desc: "Card database", ico: "🏴‍☠️", url: "https://en.onepiece-cardgame.com/" },
-      { name: "Limitless OP", desc: "Decks & meta", ico: "📊", url: "https://onepiece.limitlesstcg.com/" },
-      { name: "TCGplayer", desc: "Prices & buy", ico: "🛒", url: "https://www.tcgplayer.com/search/one-piece-card-game/product" },
-      { name: "Nations Duel", desc: "Tournaments", ico: "🏆", url: "https://nationsduel.com/" }
+    { cat: "News", items: [
+      { name: "AP News", desc: "Wire service", ico: "📰", url: "https://apnews.com/" },
+      { name: "Reuters", desc: "World news", ico: "🗞️", url: "https://www.reuters.com/" },
+      { name: "BBC", desc: "News", ico: "📻", url: "https://www.bbc.com/news" },
+      { name: "The Guardian", desc: "News", ico: "🌍", url: "https://www.theguardian.com/" }
     ]},
-    { cat: "Magic: The Gathering", items: [
-      { name: "Scryfall", desc: "Card search", ico: "🔍", url: "https://scryfall.com/" },
-      { name: "Moxfield", desc: "Deck builder", ico: "🗃️", url: "https://www.moxfield.com/" },
-      { name: "EDHREC", desc: "Commander", ico: "🃏", url: "https://edhrec.com/" },
-      { name: "Official MTG", desc: "News & rules", ico: "🧙", url: "https://magic.wizards.com/" }
+    { cat: "Reference", items: [
+      { name: "Wikipedia", desc: "Encyclopedia", ico: "📚", url: "https://www.wikipedia.org/" },
+      { name: "Wiktionary", desc: "Dictionary", ico: "🔤", url: "https://www.wiktionary.org/" },
+      { name: "Wolfram|Alpha", desc: "Compute facts", ico: "🧮", url: "https://www.wolframalpha.com/" },
+      { name: "Britannica", desc: "Encyclopedia", ico: "🏛️", url: "https://www.britannica.com/" }
     ]},
-    { cat: "Skateboarding", items: [
-      { name: "Thrasher", desc: "Mag & videos", ico: "🛹", url: "https://www.thrashermagazine.com/" },
-      { name: "The Berrics", desc: "Skate videos", ico: "🎥", url: "https://theberrics.com/" },
-      { name: "Tactics", desc: "Shop", ico: "👟", url: "https://www.tactics.com/" },
-      { name: "SLAP", desc: "Forums", ico: "💬", url: "https://slapmagazine.com/" }
+    { cat: "Reading & learning", items: [
+      { name: "Project Gutenberg", desc: "Free books", ico: "📖", url: "https://www.gutenberg.org/" },
+      { name: "Internet Archive", desc: "Everything", ico: "🗄️", url: "https://archive.org/" },
+      { name: "Khan Academy", desc: "Courses", ico: "🎓", url: "https://www.khanacademy.org/" },
+      { name: "Wikibooks", desc: "Open books", ico: "📓", url: "https://www.wikibooks.org/" }
     ]},
-    { cat: "Software development", items: [
-      { name: "MDN", desc: "Web docs", ico: "📘", url: "https://developer.mozilla.org/" },
-      { name: "Stack Overflow", desc: "Q & A", ico: "💡", url: "https://stackoverflow.com/" },
-      { name: "GitHub", desc: "Code & repos", ico: "🐙", url: "https://github.com/" },
-      { name: "Hacker News", desc: "Tech news", ico: "🟧", url: "https://news.ycombinator.com/" },
-      { name: "DevDocs", desc: "API docs", ico: "📑", url: "https://devdocs.io/" }
+    { cat: "Video & audio", items: [
+      { name: "Vimeo", desc: "Video", ico: "🎬", url: "https://vimeo.com/" },
+      { name: "Bandcamp", desc: "Music", ico: "🎵", url: "https://bandcamp.com/" },
+      { name: "Archive Video", desc: "Film & TV", ico: "📼", url: "https://archive.org/details/movies" }
     ]},
-    { cat: "Small business", items: [
-      { name: "SBA.gov", desc: "Start & fund", ico: "🏢", url: "https://www.sba.gov/" },
-      { name: "SCORE", desc: "Free mentoring", ico: "🤝", url: "https://www.score.org/" },
-      { name: "IRS Small Biz", desc: "Taxes", ico: "🧾", url: "https://www.irs.gov/businesses/small-businesses-self-employed" },
-      { name: "Bplans", desc: "Plan templates", ico: "📈", url: "https://www.bplans.com/" }
+    { cat: "Maps & everyday", items: [
+      { name: "OpenStreetMap", desc: "Maps", ico: "🗺️", url: "https://www.openstreetmap.org/" },
+      { name: "Weather", desc: "Forecast", ico: "🌤️", url: "https://wttr.in/" },
+      { name: "eBay", desc: "Shopping", ico: "🛒", url: "https://www.ebay.com/" },
+      { name: "Craigslist", desc: "Local classifieds", ico: "📋", url: "https://www.craigslist.org/" }
     ]}
   ];
 
