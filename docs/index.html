@@ -59,19 +59,19 @@
 
   .engines { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; align-items: center; }
   .engines .lbl { font-size: 12px; color: var(--muted); margin-right: 2px; }
-  .pill { font-size: 13px; color: var(--muted); background: var(--surface-2); border: 1px solid var(--border); border-radius: 999px; padding: 5px 12px; cursor: pointer; transition: all .12s; }
+  .pill { font-size: 13px; color: var(--muted); background: var(--surface-2); border: 1px solid var(--border); border-radius: 999px; padding: 5px 12px; cursor: pointer; transition: all .12s; font-family: inherit; }
   .pill[aria-pressed="true"] { color: var(--accent-ink); background: var(--accent); border-color: var(--accent); font-weight: 600; }
   .pill:hover:not([aria-pressed="true"]) { border-color: var(--accent); color: var(--text); }
 
   .recent { display: flex; flex-wrap: wrap; gap: 7px; margin-top: 12px; }
-  .recent .chip { font-size: 13px; color: var(--muted); background: none; border: 1px dashed var(--border); border-radius: 999px; padding: 5px 12px; cursor: pointer; }
+  .recent .chip { font-size: 13px; color: var(--muted); background: none; border: 1px dashed var(--border); border-radius: 999px; padding: 5px 12px; cursor: pointer; text-decoration: none; }
   .recent .chip:hover { color: var(--text); border-color: var(--accent); }
 
   section { margin-top: 34px; }
   .sechead { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin: 0 2px 13px; flex-wrap: wrap; }
   .eyebrow { font-size: 11.5px; font-weight: 600; letter-spacing: .09em; text-transform: uppercase; color: var(--muted); margin: 0; }
   .actions { display: flex; gap: 7px; }
-  .minibtn { font-size: 13px; font-weight: 600; color: var(--accent); background: none; border: 1px solid var(--border); border-radius: 8px; padding: 5px 11px; cursor: pointer; transition: all .12s; }
+  .minibtn { font-size: 13px; font-weight: 600; color: var(--accent); background: none; border: 1px solid var(--border); border-radius: 8px; padding: 5px 11px; cursor: pointer; transition: all .12s; font-family: inherit; }
   .minibtn:hover { border-color: var(--accent); }
   .minibtn.active { background: var(--accent); color: var(--accent-ink); border-color: var(--accent); }
 
@@ -89,6 +89,11 @@
 
   .empty { grid-column: 1 / -1; text-align: center; color: var(--muted); font-size: 13px; border: 1px dashed var(--border); border-radius: 12px; padding: 16px; }
 
+  .inlineform { grid-column: 1 / -1; display: flex; gap: 8px; flex-wrap: wrap; background: var(--surface); border: 1px dashed var(--accent); border-radius: 12px; padding: 10px; margin-bottom: 2px; }
+  .inlineform input { flex: 1 1 130px; min-width: 0; border: 1px solid var(--border); background: var(--bg); color: var(--text); border-radius: 8px; padding: 9px 11px; font-size: 15px; font-family: inherit; }
+  .inlineform input.emoji { flex: 0 0 58px; text-align: center; }
+  .inlineform .go { padding: 0 14px; }
+
   .catgroup { margin-top: 20px; }
   .catgroup:first-child { margin-top: 0; }
   .cattitle { display: flex; align-items: center; gap: 8px; margin: 0 2px 10px; }
@@ -96,7 +101,7 @@
   .cattitle .cname { font-size: 13px; font-weight: 600; color: var(--text); }
   .cattitle .cactions { margin-left: auto; display: none; gap: 6px; }
   .editing .cattitle .cactions { display: flex; }
-  .cattitle .cbtn { font-size: 12px; font-weight: 600; border: 1px solid var(--border); background: var(--surface); border-radius: 7px; padding: 4px 9px; cursor: pointer; color: var(--muted); }
+  .cattitle .cbtn { font-size: 12px; font-weight: 600; border: 1px solid var(--border); background: var(--surface); border-radius: 7px; padding: 4px 9px; cursor: pointer; color: var(--muted); font-family: inherit; }
   .cattitle .cbtn.add { color: var(--accent); }
   .cattitle .cbtn.del:hover { color: var(--warn); border-color: var(--warn); }
 
@@ -111,7 +116,7 @@
   .toggle { display: flex; align-items: center; gap: 10px; margin-top: 14px; font-size: 13.5px; }
   .toggle input { width: 18px; height: 18px; accent-color: var(--accent); }
   .settings .hint { font-size: 12px; color: var(--muted); margin-top: 10px; line-height: 1.5; }
-  .settings .reset { margin-top: 16px; font-size: 13px; color: var(--warn); background: none; border: 1px solid var(--border); border-radius: 8px; padding: 7px 12px; cursor: pointer; }
+  .settings .reset { margin-top: 16px; font-size: 13px; color: var(--warn); background: none; border: 1px solid var(--border); border-radius: 8px; padding: 7px 12px; cursor: pointer; font-family: inherit; }
   .settings .reset:hover { border-color: var(--warn); }
 
   footer { margin-top: 34px; text-align: center; color: var(--muted); font-size: 12px; line-height: 1.6; }
@@ -129,11 +134,13 @@
     <h1>Browse without <span class="em">AI</span>.</h1>
     <p class="sub">Your home base, your way — AI-free search, your own shortcuts, and a directory you build yourself. Everything here is yours to customize.</p>
 
-    <form id="searchForm" autocomplete="off">
+    <!-- Native GET form: opens the chosen engine in a new tab, no scripted popup. -->
+    <form id="searchForm" method="get" target="_blank" action="https://www.mojeek.com/search">
       <div class="field">
-        <input id="q" type="text" inputmode="search" placeholder="Search the web — no AI answers" aria-label="Search the web" />
+        <input id="q" name="q" type="text" inputmode="search" placeholder="Search the web — no AI answers" aria-label="Search the web" />
         <button class="go" type="submit">Search</button>
       </div>
+      <span id="extraParams"></span>
     </form>
     <div class="engines" id="engines" role="group" aria-label="Choose search engine"><span class="lbl">Search with:</span></div>
     <div class="recent" id="recent" hidden></div>
@@ -179,13 +186,19 @@
 </div>
 
 <script>
-  // --- Search engines (all AI-free result pages) ----------------------------
+  // --- Search engines (all AI-free). action+param used by the native form. --
   var ENGINES = {
-    mojeek:     { name: "Mojeek",     url: function (q) { return "https://www.mojeek.com/search?q=" + encodeURIComponent(q); } },
-    duckduckgo: { name: "DuckDuckGo", url: function (q) { return "https://duckduckgo.com/?q=" + encodeURIComponent(q) + "&ia=web"; } },
-    startpage:  { name: "Startpage",  url: function (q) { return "https://www.startpage.com/sp/search?query=" + encodeURIComponent(q); } },
-    wikipedia:  { name: "Wikipedia",  url: function (q) { return "https://en.wikipedia.org/w/index.php?search=" + encodeURIComponent(q); } }
+    mojeek:     { name: "Mojeek",     action: "https://www.mojeek.com/search",        param: "q" },
+    duckduckgo: { name: "DuckDuckGo", action: "https://duckduckgo.com/",              param: "q", extra: { ia: "web" } },
+    startpage:  { name: "Startpage",  action: "https://www.startpage.com/sp/search",  param: "query" },
+    wikipedia:  { name: "Wikipedia",  action: "https://en.wikipedia.org/w/index.php", param: "search" }
   };
+  function engineUrl(key, q) {
+    var e = ENGINES[key] || ENGINES.mojeek;
+    var u = e.action + (e.action.indexOf("?") > -1 ? "&" : "?") + encodeURIComponent(e.param) + "=" + encodeURIComponent(q);
+    if (e.extra) for (var k in e.extra) u += "&" + encodeURIComponent(k) + "=" + encodeURIComponent(e.extra[k]);
+    return u;
+  }
 
   // --- Default directory: seeded from your interests. Fully editable. --------
   var DEFAULT_DIRECTORY = [
@@ -225,28 +238,56 @@
   // --- Storage (never throws) ------------------------------------------------
   function load(key, fallback) { try { var v = JSON.parse(localStorage.getItem(key)); return v == null ? fallback : v; } catch (e) { return fallback; } }
   function save(key, val) { try { localStorage.setItem(key, JSON.stringify(val)); } catch (e) {} }
+  function clone(x) { return JSON.parse(JSON.stringify(x)); }
 
   var settings = load("aiblockle_settings", { engine: "mojeek", proxy: "", filter: false });
+  if (!ENGINES[settings.engine]) settings.engine = "mojeek";
   var shortcuts = load("aiblockle_shortcuts", []);
   var directory = load("aiblockle_directory", DEFAULT_DIRECTORY);
   var editing = false;
 
-  // --- Open helper (respects the optional filter) ----------------------------
-  function openUrl(url) {
-    var target = url;
-    if (settings.filter && settings.proxy) target = settings.proxy.replace(/\/+$/, "") + "/go?url=" + encodeURIComponent(url);
-    window.open(target, "_blank", "noopener");
+  // Apply the optional AI-filter proxy to any outgoing URL.
+  function finalHref(url) {
+    if (settings.filter && settings.proxy) return settings.proxy.replace(/\/+$/, "") + "/go?url=" + encodeURIComponent(url);
+    return url;
   }
 
-  // --- Search ----------------------------------------------------------------
   var qEl = document.getElementById("q");
-  document.getElementById("searchForm").addEventListener("submit", function (e) {
-    e.preventDefault();
-    var q = qEl.value.trim(); if (!q) return;
+  var searchForm = document.getElementById("searchForm");
+  var extraBox = document.getElementById("extraParams");
+
+  // Point the native form at the selected engine.
+  function applyEngine() {
+    var e = ENGINES[settings.engine] || ENGINES.mojeek;
+    searchForm.action = e.action;
+    qEl.name = e.param;
+    extraBox.innerHTML = "";
+    if (e.extra) for (var k in e.extra) {
+      var h = document.createElement("input");
+      h.type = "hidden"; h.name = k; h.value = e.extra[k];
+      extraBox.appendChild(h);
+    }
+  }
+
+  searchForm.addEventListener("submit", function (e) {
+    var q = qEl.value.trim();
+    if (!q) { e.preventDefault(); return; }
     var recent = load("aiblockle_recent", []).filter(function (x) { return x !== q; });
     recent.unshift(q); save("aiblockle_recent", recent.slice(0, 6)); renderRecent();
-    openUrl(ENGINES[settings.engine] ? ENGINES[settings.engine].url(q) : ENGINES.mojeek.url(q));
+    // With the filter on, we must route through the proxy — do that in JS.
+    if (settings.filter && settings.proxy) {
+      e.preventDefault();
+      openInNewTab(finalHref(engineUrl(settings.engine, q)));
+    }
+    // Otherwise let the native form submit (opens the engine in a new tab).
   });
+
+  // Fallback opener that uses a real anchor click (survives popup blockers).
+  function openInNewTab(url) {
+    var a = document.createElement("a");
+    a.href = url; a.target = "_blank"; a.rel = "noopener";
+    document.body.appendChild(a); a.click(); a.remove();
+  }
 
   function renderEngines() {
     var box = document.getElementById("engines");
@@ -255,7 +296,7 @@
       var b = document.createElement("button");
       b.type = "button"; b.className = "pill"; b.textContent = ENGINES[key].name;
       b.setAttribute("aria-pressed", key === settings.engine ? "true" : "false");
-      b.addEventListener("click", function () { settings.engine = key; save("aiblockle_settings", settings); renderEngines(); qEl.focus(); });
+      b.addEventListener("click", function () { settings.engine = key; save("aiblockle_settings", settings); applyEngine(); renderEngines(); qEl.focus(); });
       box.appendChild(b);
     });
   }
@@ -267,19 +308,18 @@
     if (!recent.length) { box.hidden = true; return; }
     box.hidden = false;
     recent.forEach(function (q) {
-      var c = document.createElement("button");
-      c.type = "button"; c.className = "chip"; c.textContent = q;
-      c.addEventListener("click", function () { qEl.value = q; openUrl(ENGINES[settings.engine].url(q)); });
-      box.appendChild(c);
+      var a = document.createElement("a");
+      a.className = "chip"; a.textContent = q;
+      a.href = finalHref(engineUrl(settings.engine, q)); a.target = "_blank"; a.rel = "noopener";
+      box.appendChild(a);
     });
   }
 
-  // --- Tiles -----------------------------------------------------------------
+  // --- Tiles (native anchors — no scripted popup) ---------------------------
   function tileEl(item, opts) {
     var a = document.createElement("a");
     a.className = "tile" + (opts && opts.editable ? " editable" : "");
-    a.href = item.url;
-    a.addEventListener("click", function (e) { e.preventDefault(); openUrl(item.url); });
+    a.href = finalHref(item.url); a.target = "_blank"; a.rel = "noopener";
     a.innerHTML = '<span class="ico">' + escapeHtml(item.ico || "🔗") + '</span>' +
       '<span><span class="t-name">' + escapeHtml(item.name) + '</span>' +
       (item.desc ? '<br><span class="t-desc">' + escapeHtml(item.desc) + '</span>' : '') + '</span>';
@@ -290,6 +330,41 @@
       a.appendChild(rm);
     }
     return a;
+  }
+
+  // --- Inline add/edit form (no prompt(), works in sandboxes) ----------------
+  function inlineForm(fields, onSave) {
+    var f = document.createElement("form");
+    f.className = "inlineform";
+    var inputs = {};
+    fields.forEach(function (fl) {
+      var i = document.createElement("input");
+      i.placeholder = fl.placeholder;
+      if (fl.value) i.value = fl.value;
+      if (fl.cls) i.className = fl.cls;
+      inputs[fl.key] = i; f.appendChild(i);
+    });
+    var save = document.createElement("button");
+    save.type = "submit"; save.className = "go"; save.textContent = "Save";
+    var cancel = document.createElement("button");
+    cancel.type = "button"; cancel.className = "minibtn"; cancel.textContent = "Cancel";
+    f.appendChild(save); f.appendChild(cancel);
+    f.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var vals = {}; for (var k in inputs) vals[k] = inputs[k].value.trim();
+      onSave(vals);
+    });
+    cancel.addEventListener("click", function () { f.remove(); });
+    setTimeout(function () { var first = f.querySelector("input"); if (first) first.focus(); }, 0);
+    return f;
+  }
+  function normalizeUrl(u) { u = u.trim(); if (!u) return ""; return /^https?:\/\//i.test(u) ? u : "https://" + u; }
+  function siteFields() {
+    return [
+      { key: "name", placeholder: "Name (e.g. My News)" },
+      { key: "url", placeholder: "Address (e.g. example.com)" },
+      { key: "ico", placeholder: "🔗", cls: "emoji" }
+    ];
   }
 
   // --- Shortcuts -------------------------------------------------------------
@@ -308,7 +383,14 @@
     });
   }
   document.getElementById("addShortcut").addEventListener("click", function () {
-    var it = promptForSite(); if (it) { shortcuts.push(it); save("aiblockle_shortcuts", shortcuts); renderShortcuts(); }
+    var box = document.getElementById("shortcuts");
+    if (box.querySelector(".inlineform")) { box.querySelector(".inlineform").remove(); return; }
+    var empty = box.querySelector(".empty"); if (empty) empty.remove();
+    box.insertBefore(inlineForm(siteFields(), function (v) {
+      if (!v.name || !v.url) return;
+      shortcuts.push({ name: v.name, desc: "", ico: v.ico || "🔗", url: normalizeUrl(v.url) });
+      save("aiblockle_shortcuts", shortcuts); renderShortcuts();
+    }), box.firstChild);
   });
 
   // --- Directory (fully customizable) ---------------------------------------
@@ -328,12 +410,21 @@
       var h = document.createElement("div"); h.className = "cattitle";
       h.innerHTML = '<span class="cdot"></span><span class="cname">' + escapeHtml(group.cat) + '</span>';
       var acts = document.createElement("span"); acts.className = "cactions";
-      var addB = document.createElement("button"); addB.type = "button"; addB.className = "cbtn add"; addB.textContent = "+ Site";
-      addB.addEventListener("click", function () { var it = promptForSite(); if (it) { group.items.push(it); saveDir(); renderDirectory(); } });
-      var renB = document.createElement("button"); renB.type = "button"; renB.className = "cbtn"; renB.textContent = "Rename";
-      renB.addEventListener("click", function () { var n = prompt("Rename category:", group.cat); if (n && n.trim()) { group.cat = n.trim(); saveDir(); renderDirectory(); } });
-      var delB = document.createElement("button"); delB.type = "button"; delB.className = "cbtn del"; delB.textContent = "× Remove";
-      delB.addEventListener("click", function () { if (confirm('Remove the "' + group.cat + '" category?')) { directory.splice(gi, 1); saveDir(); renderDirectory(); } });
+      var addB = mkBtn("cbtn add", "+ Site", function () {
+        g.insertBefore(inlineForm(siteFields(), function (v) {
+          if (!v.name || !v.url) return;
+          group.items.push({ name: v.name, desc: "", ico: v.ico || "🔗", url: normalizeUrl(v.url) });
+          saveDir(); renderDirectory();
+        }), g.querySelector(".tiles"));
+      });
+      var renB = mkBtn("cbtn", "Rename", function () {
+        g.insertBefore(inlineForm([{ key: "cat", placeholder: "Category name", value: group.cat }], function (v) {
+          if (v.cat) { group.cat = v.cat; saveDir(); renderDirectory(); }
+        }), g.querySelector(".tiles"));
+      });
+      var delB = mkBtn("cbtn del", "× Remove", function () {
+        directory.splice(gi, 1); saveDir(); renderDirectory();
+      });
       acts.appendChild(addB); acts.appendChild(renB); acts.appendChild(delB);
       h.appendChild(acts); g.appendChild(h);
 
@@ -350,6 +441,10 @@
       g.appendChild(grid); box.appendChild(g);
     });
   }
+  function mkBtn(cls, label, fn) {
+    var b = document.createElement("button"); b.type = "button"; b.className = cls; b.textContent = label;
+    b.addEventListener("click", fn); return b;
+  }
 
   document.getElementById("editDir").addEventListener("click", function () {
     editing = !editing;
@@ -359,35 +454,38 @@
     renderDirectory();
   });
   document.getElementById("addCat").addEventListener("click", function () {
-    var n = prompt("New category name (e.g. Sports):"); if (!n || !n.trim()) return;
-    directory.push({ cat: n.trim(), items: [] }); saveDir(); renderDirectory();
-  });
-  document.getElementById("resetDir").addEventListener("click", function () {
-    if (confirm("Reset the directory back to the starter set? Your custom categories and sites will be removed.")) {
-      directory = JSON.parse(JSON.stringify(DEFAULT_DIRECTORY)); saveDir(); renderDirectory();
-    }
+    var box = document.getElementById("directory");
+    box.insertBefore(inlineForm([{ key: "cat", placeholder: "New category (e.g. Sports)" }], function (v) {
+      if (!v.cat) return;
+      directory.push({ cat: v.cat, items: [] }); saveDir(); renderDirectory();
+    }), box.firstChild);
   });
 
-  // Shared: ask for a site (name + url + optional emoji).
-  function promptForSite() {
-    var name = prompt("Site name:"); if (!name || !name.trim()) return null;
-    var url = prompt("Web address (e.g. example.com):"); if (!url || !url.trim()) return null;
-    url = url.trim(); if (!/^https?:\/\//i.test(url)) url = "https://" + url;
-    var ico = prompt("Emoji icon (optional):", "🔗");
-    return { name: name.trim(), desc: "", ico: (ico && ico.trim()) || "🔗", url: url };
-  }
+  // Two-tap reset (no confirm() dialog).
+  var resetBtn = document.getElementById("resetDir");
+  var resetArmed = false, resetTimer = null;
+  resetBtn.addEventListener("click", function () {
+    if (!resetArmed) {
+      resetArmed = true; resetBtn.textContent = "Tap again to confirm reset";
+      resetTimer = setTimeout(function () { resetArmed = false; resetBtn.textContent = "Reset directory to defaults"; }, 4000);
+      return;
+    }
+    clearTimeout(resetTimer); resetArmed = false; resetBtn.textContent = "Reset directory to defaults";
+    directory = clone(DEFAULT_DIRECTORY); saveDir(); renderDirectory();
+  });
 
   // --- Settings wiring -------------------------------------------------------
   var proxyInput = document.getElementById("proxyUrl");
   var filterCheck = document.getElementById("filterOn");
   proxyInput.value = settings.proxy || "";
   filterCheck.checked = !!settings.filter;
-  proxyInput.addEventListener("change", function () { settings.proxy = proxyInput.value.trim(); save("aiblockle_settings", settings); });
-  filterCheck.addEventListener("change", function () { settings.filter = filterCheck.checked; save("aiblockle_settings", settings); });
+  proxyInput.addEventListener("change", function () { settings.proxy = proxyInput.value.trim(); save("aiblockle_settings", settings); rerenderLinks(); });
+  filterCheck.addEventListener("change", function () { settings.filter = filterCheck.checked; save("aiblockle_settings", settings); rerenderLinks(); });
+  function rerenderLinks() { renderRecent(); renderShortcuts(); renderDirectory(); }
 
   function escapeHtml(s) { return String(s).replace(/[&<>"']/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]; }); }
 
-  renderEngines(); renderRecent(); renderShortcuts(); renderDirectory();
+  applyEngine(); renderEngines(); renderRecent(); renderShortcuts(); renderDirectory();
 </script>
 </body>
 </html>
