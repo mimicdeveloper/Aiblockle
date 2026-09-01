@@ -139,7 +139,7 @@
     <p class="sub">Your home base, your way — AI-free search, your own shortcuts, and a directory you build yourself. Everything here is yours to customize.</p>
 
     <!-- Native GET form: opens the chosen engine in a new tab, no scripted popup. -->
-    <form id="searchForm" method="get" target="_blank" action="https://duckduckgo.com/">
+    <form id="searchForm" method="get" target="_blank" action="https://www.startpage.com/sp/search">
       <div class="field">
         <input id="q" name="q" type="text" inputmode="search" placeholder="Search the web — no AI answers" aria-label="Search the web" />
         <button class="go" type="submit">Search</button>
@@ -192,12 +192,12 @@
 <script>
   // --- Search engines (all AI-free). action+param used by the native form. --
   var ENGINES = {
-    duckduckgo: { name: "DuckDuckGo", action: "https://duckduckgo.com/",              param: "q" },
     startpage:  { name: "Startpage",  action: "https://www.startpage.com/sp/search",  param: "query" },
+    duckduckgo: { name: "DuckDuckGo", action: "https://duckduckgo.com/",              param: "q" },
     wikipedia:  { name: "Wikipedia",  action: "https://en.wikipedia.org/w/index.php", param: "search" }
   };
   function engineUrl(key, q) {
-    var e = ENGINES[key] || ENGINES.duckduckgo;
+    var e = ENGINES[key] || ENGINES.startpage;
     var u = e.action + (e.action.indexOf("?") > -1 ? "&" : "?") + encodeURIComponent(e.param) + "=" + encodeURIComponent(q);
     if (e.extra) for (var k in e.extra) u += "&" + encodeURIComponent(k) + "=" + encodeURIComponent(e.extra[k]);
     return u;
@@ -242,8 +242,8 @@
   function save(key, val) { try { localStorage.setItem(key, JSON.stringify(val)); } catch (e) {} }
   function clone(x) { return JSON.parse(JSON.stringify(x)); }
 
-  var settings = load("aiblockle_settings", { engine: "duckduckgo", proxy: "", filter: false });
-  if (!ENGINES[settings.engine]) { settings.engine = "duckduckgo"; save("aiblockle_settings", settings); }
+  var settings = load("aiblockle_settings", { engine: "startpage", proxy: "", filter: false });
+  if (!ENGINES[settings.engine]) { settings.engine = "startpage"; save("aiblockle_settings", settings); }
   var shortcuts = load("aiblockle_shortcuts", []);
   var directory = load("aiblockle_directory", DEFAULT_DIRECTORY);
   var editing = false;
@@ -260,7 +260,7 @@
 
   // Point the native form at the selected engine.
   function applyEngine() {
-    var e = ENGINES[settings.engine] || ENGINES.duckduckgo;
+    var e = ENGINES[settings.engine] || ENGINES.startpage;
     searchForm.action = e.action;
     qEl.name = e.param;
     extraBox.innerHTML = "";
