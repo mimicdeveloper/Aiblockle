@@ -121,6 +121,10 @@
 
   footer { margin-top: 34px; text-align: center; color: var(--muted); font-size: 12px; line-height: 1.6; }
   footer b { color: var(--text); font-weight: 600; }
+
+  #aiblockle-toast { position: fixed; left: 50%; bottom: 18px; transform: translateX(-50%); max-width: 90%; background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 11px 16px; font-size: 13.5px; color: var(--text); box-shadow: var(--shadow); opacity: 0; pointer-events: none; transition: opacity .2s; z-index: 9999; white-space: nowrap; }
+  #aiblockle-toast.show { opacity: 1; pointer-events: auto; }
+  #aiblockle-toast a { color: var(--accent); font-weight: 600; text-decoration: none; }
 </style>
 </head>
 <body>
@@ -277,17 +281,36 @@
     openUrl(finalHref(engineUrl(settings.engine, q)));
   });
 
-  // Robust opener: try a new tab; if the environment blocks it (sandboxed
-  // preview, popup blocker), fall back to navigating the current tab so the
-  // user always sees the page. NOTE: never pass "noopener" as a window.open
-  // feature — that makes it return null even on success, defeating the check.
+  // Robust opener. Order matters:
+  //   1. Try a new tab (works on a real page: your phone via GitHub Pages).
+  //   2. If blocked AND we're the top-level page, navigate this tab.
+  //   3. If blocked AND we're inside a frame (the Claude preview), DON'T
+  //      navigate the frame — search engines refuse to load framed and it
+  //      goes blank. Show a tappable "Open results" link instead.
+  // NOTE: never pass "noopener" as a window.open feature — it makes the call
+  // return null even on success, defeating the blocked-check.
   function openUrl(url) {
     var w = null;
     try { w = window.open(url, "_blank"); } catch (err) { w = null; }
     if (w) { try { w.opener = null; } catch (err) {} return; }
-    try { window.location.assign(url); } catch (err) {
-      try { window.top.location.href = url; } catch (err2) {}
-    }
+    var framed = false;
+    try { framed = window.self !== window.top; } catch (err) { framed = true; }
+    if (!framed) { try { window.location.assign(url); } catch (err) {} return; }
+    showManualLink(url);
+  }
+
+  function showManualLink(url) {
+    var t = document.getElementById("aiblockle-toast");
+    if (!t) { t = document.createElement("div"); t.id = "aiblockle-toast"; document.body.appendChild(t); }
+    t.innerHTML = "";
+    var span = document.createElement("span");
+    span.textContent = "Preview blocked a new tab — ";
+    var a = document.createElement("a");
+    a.href = url; a.target = "_blank"; a.rel = "noopener"; a.textContent = "open results ↗";
+    t.appendChild(span); t.appendChild(a);
+    t.classList.add("show");
+    clearTimeout(t._timer);
+    t._timer = setTimeout(function () { t.classList.remove("show"); }, 9000);
   }
 
   function renderEngines() {
