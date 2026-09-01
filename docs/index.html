@@ -269,23 +269,25 @@
   }
 
   searchForm.addEventListener("submit", function (e) {
+    e.preventDefault();
     var q = qEl.value.trim();
-    if (!q) { e.preventDefault(); return; }
+    if (!q) return;
     var recent = load("aiblockle_recent", []).filter(function (x) { return x !== q; });
     recent.unshift(q); save("aiblockle_recent", recent.slice(0, 6)); renderRecent();
-    // With the filter on, we must route through the proxy — do that in JS.
-    if (settings.filter && settings.proxy) {
-      e.preventDefault();
-      openInNewTab(finalHref(engineUrl(settings.engine, q)));
-    }
-    // Otherwise let the native form submit (opens the engine in a new tab).
+    openUrl(finalHref(engineUrl(settings.engine, q)));
   });
 
-  // Fallback opener that uses a real anchor click (survives popup blockers).
-  function openInNewTab(url) {
-    var a = document.createElement("a");
-    a.href = url; a.target = "_blank"; a.rel = "noopener";
-    document.body.appendChild(a); a.click(); a.remove();
+  // Robust opener: try a new tab; if the environment blocks it (sandboxed
+  // preview, popup blocker), fall back to navigating the current tab so the
+  // user always sees the page. NOTE: never pass "noopener" as a window.open
+  // feature — that makes it return null even on success, defeating the check.
+  function openUrl(url) {
+    var w = null;
+    try { w = window.open(url, "_blank"); } catch (err) { w = null; }
+    if (w) { try { w.opener = null; } catch (err) {} return; }
+    try { window.location.assign(url); } catch (err) {
+      try { window.top.location.href = url; } catch (err2) {}
+    }
   }
 
   function renderEngines() {
@@ -309,7 +311,9 @@
     recent.forEach(function (q) {
       var a = document.createElement("a");
       a.className = "chip"; a.textContent = q;
-      a.href = finalHref(engineUrl(settings.engine, q)); a.target = "_blank"; a.rel = "noopener";
+      var url = finalHref(engineUrl(settings.engine, q));
+      a.href = url; a.target = "_blank"; a.rel = "noopener";
+      a.addEventListener("click", function (e) { e.preventDefault(); openUrl(url); });
       box.appendChild(a);
     });
   }
@@ -318,7 +322,9 @@
   function tileEl(item, opts) {
     var a = document.createElement("a");
     a.className = "tile" + (opts && opts.editable ? " editable" : "");
-    a.href = finalHref(item.url); a.target = "_blank"; a.rel = "noopener";
+    var href = finalHref(item.url);
+    a.href = href; a.target = "_blank"; a.rel = "noopener";
+    a.addEventListener("click", function (e) { if (e.target.closest(".rm")) return; e.preventDefault(); openUrl(href); });
     a.innerHTML = '<span class="ico">' + escapeHtml(item.ico || "🔗") + '</span>' +
       '<span><span class="t-name">' + escapeHtml(item.name) + '</span>' +
       (item.desc ? '<br><span class="t-desc">' + escapeHtml(item.desc) + '</span>' : '') + '</span>';
